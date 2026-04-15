@@ -88,10 +88,10 @@ install_greenchlaw() {
     git clone https://github.com/greench-ai/greenchclaw-cpu.git "$INSTALL_DIR"
   fi
 
-  # Install in editable mode
+  # Install in editable mode (includes web dependencies)
   $PYTHON_CMD -m pip install --upgrade pip
-  $PYTHON_CMD -m pip install -e "$INSTALL_DIR"
-  ok "GreenClaw installed!"
+  $PYTHON_CMD -m pip install -e "$INSTALL_DIR[all]" --quiet
+  ok "GreenClaw installed (with web UI)!"
 }
 
 # ── Check Ollama ─────────────────────────────────────────────────────────────

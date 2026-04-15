@@ -134,6 +134,21 @@ def cmd_chat(args):
         sys.exit(1)
 
 
+def cmd_serve(args):
+    """Start the GreenClaw web server."""
+    try:
+        from src.web.server import run_server
+        host = args.host or "0.0.0.0"
+        port = args.port or 51234
+        print(f"Starting GreenClaw web server on {host}:{port}")
+        print(f"Open http://localhost:{port} in your browser")
+        run_server(host=host, port=port, reload=args.reload)
+    except ImportError as e:
+        print(f"[✗] Could not load web server: {e}")
+        print("[i] Install web dependencies: pip install greenchclaw-cpu[all]")
+        sys.exit(1)
+
+
 # ── Argument parser ───────────────────────────────────────────────────────────
 
 def build_parser():
@@ -175,6 +190,21 @@ Examples:
     p.add_argument("--log-level", dest="log_level", default="INFO",
                    choices=["DEBUG", "INFO", "WARNING", "ERROR"],
                    help="Logging level")
+    # Serve / web subcommands
+    sub = p.add_subparsers(dest="subcommand", help="Available subcommands")
+
+    serve_sp = sub.add_parser("serve", help="Start the web server on port 51234")
+    serve_sp.add_argument("--host", default="0.0.0.0", help="Host to bind")
+    serve_sp.add_argument("--port", type=int, default=51234, help="Port to bind")
+    serve_sp.add_argument("--reload", action="store_true", help="Auto-reload on code changes")
+    serve_sp.set_defaults(func=cmd_serve)
+
+    web_sp = sub.add_parser("web", help="Alias for 'serve'")
+    web_sp.add_argument("--host", default="0.0.0.0", help="Host to bind")
+    web_sp.add_argument("--port", type=int, default=51234, help="Port to bind")
+    web_sp.add_argument("--reload", action="store_true", help="Auto-reload on code changes")
+    web_sp.set_defaults(func=cmd_serve)
+
     return p
 
 
@@ -191,6 +221,8 @@ def main():
         cmd_config(args)
     elif args.health:
         cmd_health()
+    elif getattr(args, "func", None) is not None:
+        args.func(args)
     else:
         cmd_chat(args)
 

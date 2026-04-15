@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenClaw CPU — All-in-One AI Agent</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦎</text></svg>" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════════ -->
+<header class="header">
+  <div class="header-brand">
+    <span class="brand-icon">🦎</span>
+    <span class="brand-name">GreenClaw</span>
+    <span class="brand-badge">CPU</span>
+  </div>
+
+  <nav class="header-nav" id="header-nav">
+    <button class="nav-btn active" data-panel="chat">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Chat
+    </button>
+    <button class="nav-btn" data-panel="kb">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Knowledge
+    </button>
+    <button class="nav-btn" data-panel="tools">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      Tools
+    </button>
+    <button class="nav-btn" data-panel="models">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Models
+    </button>
+  </nav>
+
+  <div class="header-meta">
+    <span class="model-name" id="model-name">—</span>
+    <span class="status-indicator" id="status-indicator">
+      <span class="dot dot-idle"></span>
+      <span class="status-text" id="status-text">Connecting…</span>
+    </span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PANELS
+═══════════════════════════════════════════════════════════ -->
+<div class="panels">
+
+  <!-- ── Chat Panel ───────────────────────────────────────── -->
+  <div class="panel active" id="panel-chat">
+    <main class="chat-main" id="chat-main">
+      <div class="welcome-screen" id="welcome-screen">
+        <div class="welcome-icon">🦎</div>
+        <h1 class="welcome-title">GreenClaw CPU</h1>
+        <p class="welcome-subtitle">The ALL-IN-ONE AI Agent</p>
+        <div class="feature-grid">
+          <div class="feature-chip">💬 Chat</div>
+          <div class="feature-chip">🔍 Web Search</div>
+          <div class="feature-chip">📄 Documents</div>
+          <div class="feature-chip">🧠 Knowledge Bases</div>
+          <div class="feature-chip">⚡ Code Execution</div>
+          <div class="feature-chip">🤖 Sub-Agents</div>
+          <div class="feature-chip">🖼️ Image Analysis</div>
+          <div class="feature-chip">💾 Memory</div>
+        </div>
+        <div class="welcome-hint" id="welcome-hint">
+          <span class="hint-spinner"></span> Connecting to your agent…
+        </div>
+      </div>
+      <div class="messages" id="messages"></div>
+      <div class="typing-indicator" id="typing-indicator" style="display:none">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+    </main>
+  </div>
+
+  <!-- ── Knowledge Base Panel ─────────────────────────────── -->
+  <div class="panel" id="panel-kb">
+    <div class="panel-content">
+      <div class="panel-header">
+        <h2>📚 Knowledge Bases</h2>
+        <p>Upload documents, URLs, or text to create searchable knowledge bases.</p>
+      </div>
+
+      <!-- Add content form -->
+      <div class="kb-section">
+        <h3>➕ Add Content</h3>
+        <div class="kb-tabs">
+          <button class="kb-tab active" data-kb-tab="file">📎 File</button>
+          <button class="kb-tab" data-kb-tab="url">🔗 URL</button>
+          <button class="kb-tab" data-kb-tab="text">📝 Text</button>
+        </div>
+
+        <!-- File upload -->
+        <div class="kb-tab-content active" id="kb-tab-file">
+          <div class="file-drop-zone" id="file-drop-zone">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Drop files here or <label class="file-browse-btn"><input type="file" id="kb-file-input" accept=".pdf,.docx,.txt,.md,.py,.js,.ts,.json,.yaml,.csv,.html,.css" multiple hidden />browse</label></p>
+            <span class="file-hint">PDF, DOCX, TXT, MD, Python, JS, JSON, CSV…</span>
+          </div>
+          <div class="file-list" id="file-list"></div>
+          <button class="btn btn-primary" id="kb-upload-btn" disabled>Upload to Knowledge Base</button>
+        </div>
+
+        <!-- URL -->
+        <div class="kb-tab-content" id="kb-tab-url">
+          <input type="url" id="kb-url-input" class="form-input" placeholder="https://example.com/article" />
+          <input type="text" id="kb-url-name" class="form-input" placeholder="Name (optional)" />
+          <button class="btn btn-primary" id="kb-add-url-btn">Add URL</button>
+        </div>
+
+        <!-- Text -->
+        <div class="kb-tab-content" id="kb-tab-text">
+          <textarea id="kb-text-input" class="form-textarea" placeholder="Paste text or notes to add to your knowledge base…" rows="5"></textarea>
+          <input type="text" id="kb-text-name" class="form-input" placeholder="Name (optional)" />
+          <button class="btn btn-primary" id="kb-add-text-btn">Add Text</button>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="kb-section">
+        <h3>🔍 Search Knowledge Base</h3>
+        <div class="kb-search-row">
+          <input type="text" id="kb-search-input" class="form-input" placeholder="Ask a question about your documents…" />
+          <button class="btn btn-accent" id="kb-search-btn">Search</button>
+        </div>
+        <div class="kb-results" id="kb-results"></div>
+      </div>
+
+      <!-- Document list -->
+      <div class="kb-section">
+        <h3>📁 Documents</h3>
+        <div class="kb-docs" id="kb-docs">
+          <div class="kb-loading">
+            <span class="hint-spinner"></span> Loading documents…
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Tools Panel ──────────────────────────────────────── -->
+  <div class="panel" id="panel-tools">
+    <div class="panel-content">
+      <div class="panel-header">
+        <h2>⚡ Available Tools</h2>
+        <p>GreenClaw's capabilities — each tool gives the agent agency to act in the world.</p>
+      </div>
+      <div class="tools-grid" id="tools-grid">
+        <div class="kb-loading">
+          <span class="hint-spinner"></span> Loading tools…
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Models Panel ─────────────────────────────────────── -->
+  <div class="panel" id="panel-models">
+    <div class="panel-content">
+      <div class="panel-header">
+        <h2>🤖 Model Configuration</h2>
+        <p>Configure your AI model provider and available models.</p>
+      </div>
+      <div class="config-section">
+        <div class="config-row">
+          <label>Provider</label>
+          <select id="cfg-provider" class="form-select">
+            <option value="ollama">Ollama (local)</option>
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="openrouter">OpenRouter</option>
+          </select>
+        </div>
+        <div class="config-row">
+          <label>Model</label>
+          <select id="cfg-model" class="form-select">
+            <option value="">— Select model —</option>
+          </select>
+        </div>
+        <div class="available-models" id="available-models">
+          <h3>Detected Models</h3>
+          <div id="model-list">Loading…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /panels -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     INPUT AREA
+═══════════════════════════════════════════════════════════ -->
+<footer class="input-area">
+  <div class="input-wrapper">
+    <textarea id="message-input" class="message-input" placeholder="Ask GreenClaw anything…" rows="1" autofocus></textarea>
+    <div class="input-actions">
+      <button class="attach-btn" id="attach-btn" title="Attach file or image">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+      </button>
+      <button class="send-btn" id="send-btn" title="Send message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="input-hint" id="input-hint">
+    <span class="kb-badge">KB</span> Press Enter to send, Shift+Enter for newline
+  </div>
+</footer>
+
+<!-- File attach menu -->
+<div class="attach-menu" id="attach-menu" style="display:none">
+  <button class="attach-option" id="attach-image">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    Analyze Image
+  </button>
+  <button class="attach-option" id="attach-to-kb">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Add to Knowledge Base
+  </button>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
