@@ -52,7 +52,7 @@ all = [
 ]
 
 [project.scripts]
-greenchclaw = "greenchclaw_cpu.cli.main:main"
+greenchclaw = "src.cli.main:main"
 
 [project.urls]
 Homepage    = "https://github.com/greench-ai/greenchclaw-cpu"
@@ -62,6 +62,7 @@ Docs        = "https://github.com/greench-ai/greenchclaw-cpu#readme"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["src*"]
+exclude = ["src/tests*"]
 
 [tool.setuptools.package-data]
-greenchclaw = ["souls/**/*.md"]
+src = ["souls/**/*.md"]
