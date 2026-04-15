@@ -1,0 +1,3 @@
+# GreenClaw
+
+MIT License
