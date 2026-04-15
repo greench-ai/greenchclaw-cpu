@@ -1,8 +1,33 @@
-# GreenClaw CPU
+# GreenClaw CPU 🦎
 
 **The Ultimate Body for a SOUL**
 
 MIT License | Local-first AI Agent | Freedom is Key
+
+---
+
+## Install in One Command
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/greench-ai/greenchclaw-cpu/main/install.sh | bash
+```
+
+**That's it.** Answer 3 questions, then start chatting.
+
+### What happens next?
+
+1. 🐣 **Answer 3 questions** — who you are, what your AI companion should be called, and how you want to run AI (local Ollama for free, or cloud APIs)
+2. 🦎 **GreenClaw sets everything up** — writes your config, creates your personal Soul, pulls a model if needed
+3. 💬 **Start chatting** — `greenchclaw` and you're live
+
+### Ollama (free, local AI)
+
+If you chose Ollama, make sure it's running first:
+
+```bash
+ollama serve
+ollama pull llama3.2   # first time only
+```
 
 ---
 
@@ -22,46 +47,25 @@ GreenClaw CPU is a full-power AI agent that runs on **any machine** — no GPU n
 
 ## Quick Start
 
-### 1. Install Dependencies
-
 ```bash
-pip install -r requirements.txt
-```
+# One-command install (recommended)
+curl -fsSL https://raw.githubusercontent.com/greench-ai/greenchclaw-cpu/main/install.sh | bash
 
-### 2. Install Ollama (for local mode)
+# Re-run the setup wizard
+greenchclaw --onboard
 
-```bash
-# Linux/Mac
-curl -fsSL https://ollama.com/install.sh | sh
+# Check system health
+greenchclaw --health
 
-# Pull a model
-ollama pull llama3.2
+# Show current config
+greenchclaw --config
 
-# Verify Ollama is running
-ollama list
-```
+# Start chatting
+greenchclaw
 
-### 3. Run GreenClaw
-
-```bash
-# Local mode (no API key needed)
-python -m src.main
-
-# With specific model
-python -m src.main --model ollama --name llama3.2
-
-# Cloud mode
-python -m src.main --model openai --api-key sk-... --name gpt-4o
-
-# Custom port (run multiple GreenClaw versions at once)
-python -m src.main --port 51234
-```
-
-### 4. Chat!
-
-```
-👤 You: Hello, who are you?
-🟢 GreenClaw: I'm GreenClaw — The Ultimate Body for a SOUL...
+# Override options at runtime
+greenchclaw --model openai --api-key sk-... --name gpt-4o
+greenchclaw --port 51234
 ```
 
 ## Configuration

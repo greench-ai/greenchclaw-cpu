@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "greenchclaw-cpu"
+version = "0.1.0"
+description = "The Ultimate Body for a SOUL — CPU-first AI agent that runs anywhere"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "GreenClaw Team", email = "team@greench.ai"}
+]
+keywords = ["ai", "agent", "llm", "ollama", "claude", "openai", "local-ai", "cli"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+greenchclaw = "greenchclaw.cli.main:main"
+
+[project.urls]
+Homepage    = "https://github.com/greench-ai/greenchclaw-cpu"
+Repository  = "https://github.com/greench-ai/greenchclaw-cpu"
+Docs        = "https://github.com/greench-ai/greenchclaw-cpu#readme"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.setuptools.package-data]
+greenchclaw = ["souls/**/*.md"]
