@@ -52,7 +52,7 @@ all = [
 ]
 
 [project.scripts]
-greenchclaw = "greenchclaw.cli.main:main"
+greenchclaw = "greenchclaw_cpu.cli.main:main"
 
 [project.urls]
 Homepage    = "https://github.com/greench-ai/greenchclaw-cpu"
