@@ -1,0 +1,54 @@
+# GreenClaw CPU Configuration
+# Edit this file to configure your AI setup
+# Freedom is Key — you control everything
+#
+# ─── Running Multiple GreenClaw Versions ──────────────────
+# All GreenClaw versions can run simultaneously on different ports.
+#   • GreenClaw CPU:         port 51234  (this file)
+#   • GreenClaw GPU:         port 51235  (greenchlaw-gpu repo)
+#   • GreenClaw KidGuardian: port 51236  (greenchlaw-kidguardian repo)
+# Override with: --port flag or GREENCLAW_PORT env var.
+# ───────────────────────────────────────────────────────────
+
+# ─── Model Provider ───────────────────────────────────────
+# Options: ollama, openai, anthropic, openrouter, localai
+# LOCAL MODE (no API key needed):
+model_provider: ollama
+model_name: llama3.2
+
+# API MODE (uncomment and configure):
+# model_provider: openai
+# api_key: your-api-key-here
+# model_name: gpt-4o
+# base_url: https://api.openai.com/v1
+
+# ─── Local Model Settings ─────────────────────────────────
+ollama_url: http://localhost:11434
+localai_url: http://localhost:8080
+
+# ─── Soul / Personality ───────────────────────────────────
+# Path to soul files directory
+soul_dir: ./souls
+active_soul: default
+
+# ─── Agent Settings ────────────────────────────────────────
+max_retries: 3
+timeout: 120
+stream: true
+
+# ─── Memory ───────────────────────────────────────────────
+memory_enabled: true
+memory_dir: ./memory
+consolidation_threshold: 50
+
+# ─── Logging ──────────────────────────────────────────────
+log_level: INFO
+log_file: ./logs/greenchclaw.log
+
+# ─── Server ───────────────────────────────────────────────
+# Multiple GreenClaw versions can run simultaneously.
+# Each version has a different default port:
+#   CPU: 51234 | GPU: 51235 | KidGuardian: 51236
+# Change port here or via GREENCLAW_PORT env var.
+server_port: 51234
+server_host: 0.0.0.0
