@@ -1,7 +1,7 @@
 #!/bin/bash
 # ─────────────────────────────────────────────────────────────────────────────
 # GreenClaw One-Command Installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/greench-ai/greenchclaw-cpu/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/greench-ai/greenchclaw-cpu/HEAD/install.sh | bash
 # ─────────────────────────────────────────────────────────────────────────────
 set -e
 
@@ -89,8 +89,8 @@ install_greenchlaw() {
   fi
 
   # Install in editable mode (includes web dependencies)
-  $PYTHON_CMD -m pip install --upgrade pip
-  $PYTHON_CMD -m pip install -e "$INSTALL_DIR[all]" --quiet
+  $PYTHON_CMD -m pip install --upgrade pip --break-system-packages
+  $PYTHON_CMD -m pip install -e "$INSTALL_DIR[all]" --quiet --break-system-packages
   ok "GreenClaw installed (with web UI)!"
 }
 
